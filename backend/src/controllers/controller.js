@@ -39,7 +39,6 @@ export const LoginUser = async (req, res) => {
         if (err) {
           throw err;
         }
-        console.log(token);
         res.cookie("token", token).json({
           id: userDoc._id,
           username,
