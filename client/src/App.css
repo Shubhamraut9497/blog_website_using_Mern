@@ -11,6 +11,7 @@ main {
   padding: 10px;
   max-width: 900px;
   margin: 0px auto;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
 }
 header {
   display: flex;
@@ -22,14 +23,24 @@ header {
 header a {
   text-decoration: none;
   color: inherit;
+  
 }
 header a.logo {
   font-weight: bold;
   font-size: 1.5rem;
+  padding:2px;
+  color:rgb(7, 155, 93)
 }
+header a.logo:hover{
+  color:white;
+  background-color: #333;
+}
+
 header nav {
   display: flex;
   gap: 15px;
+  color:tomato;
+
 }
 div.post {
   display: grid;
