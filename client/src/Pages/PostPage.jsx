@@ -7,9 +7,10 @@ function PostPage() {
   const { id } = useParams();
   const [postInfo, setPostInfo] = useState(null);
   const {userInfo} =useContext(UserContext);
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
-    fetch(`http://localhost:8000/post/${id}`, {
+    fetch(`${apiUrl}/post/${id}`, {
       method: "GET",
     })
       .then((response) => {
@@ -35,7 +36,7 @@ function PostPage() {
         </div>
        )} 
       <div className="image"> 
-        <img src={`http://localhost:8000/${postInfo?.cover}`} alt="img" />
+        <img src={`${apiUrl}/${postInfo?.cover}`} alt="img" />
       </div>
       <div className="content" dangerouslySetInnerHTML={{ __html: postInfo.content }} />
     </div>

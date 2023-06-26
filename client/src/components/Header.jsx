@@ -4,9 +4,11 @@ import { UserContext } from "../userContext/userContext";
 
 
 function Header() {
+  const apiUrl = process.env.REACT_APP_API_URL;
+  console.log(apiUrl);
   const {setUserInfo,userInfo}=useContext(UserContext);
   useEffect(() => {
-    fetch("http://localhost:8000/profile", {
+    fetch(`${apiUrl}/profile`, {
       credentials: "include",
     })
       .then((response) => {
@@ -17,7 +19,7 @@ function Header() {
       });
   }, []);
   const logout=()=>{
-    fetch("http://localhost:8000/logout",{
+    fetch(`${apiUrl}/logout`,{
       credentials:"include",
       method:"POST",
     })

@@ -3,9 +3,10 @@ import Post from "../components/Post";
 
 function IndexPage() {
   const [posts, setPosts] = useState([]);
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
-    fetch("http://localhost:8000/post", {
+    fetch(`${apiUrl}/post`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

@@ -3,10 +3,10 @@ import React, { useState } from "react";
 function RegisterPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
+  const apiUrl = process.env.REACT_APP_API_URL;
   const submitForm = async (e) => {
     e.preventDefault();
-    const api = await fetch("http://localhost:8000/register", {
+    const api = await fetch(`${apiUrl}/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, password }),

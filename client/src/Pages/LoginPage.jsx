@@ -7,9 +7,10 @@ function LoginPage() {
   const [password, setPassword] = useState("");
  const [redirect,setRedirect]=useState(false);
  const {setUserInfo}=useContext(UserContext);
+ const apiUrl = process.env.REACT_APP_API_URL;
   const submitFormLogin = async (e) => {
     e.preventDefault();
-    const response= await fetch("http://localhost:8000/login", {
+    const response= await fetch(`${apiUrl}/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, password }),

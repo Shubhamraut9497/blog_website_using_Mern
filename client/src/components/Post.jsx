@@ -1,12 +1,15 @@
 import React from "react";
 import { format } from "date-fns";
 import { Link } from "react-router-dom";
+
+
 function Post({ _id,title, summary, cover, content, createdAt, author }) {
+  const apiUrl = process.env.REACT_APP_API_URL;
   return (
     <div className="post">
       <div className="image">
         <Link to={`/post/${_id}`}>
-          <img src={"http://localhost:8000/" + cover} alt="img" />
+          <img src={`${apiUrl}/` + cover} alt="img" />
         </Link>
       </div>
       <div className="texts">

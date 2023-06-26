@@ -38,9 +38,10 @@ function EditPost() {
   const [files, setFiles] = useState("");
   const [redirect,setRedirect]=useState(false);
   const {id}=useParams();
+  const apiUrl = process.env.REACT_APP_API_URL;
    
   useEffect(()=>{
-    fetch(`http://localhost:8000/post/${id}`).then((response)=>{
+    fetch(`${apiUrl}/post/${id}`).then((response)=>{
         return response.json();
     }).then((postInfo)=>{
         setTitles(postInfo.title)
@@ -57,7 +58,7 @@ function EditPost() {
     data.set("id",id);
     if(files?.[0])
     data.set("file",files?.[0])
-    const response=await fetch("http://localhost:8000/post",{
+    const response=await fetch(`${apiUrl}/post`,{
         method:"PUT",
         body:data,
         credentials:'include',
