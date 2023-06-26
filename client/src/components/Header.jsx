@@ -5,7 +5,6 @@ import { UserContext } from "../userContext/userContext";
 
 function Header() {
   const apiUrl = process.env.REACT_APP_API_URL;
-  console.log(apiUrl);
   const {setUserInfo,userInfo}=useContext(UserContext);
   useEffect(() => {
     fetch(`${apiUrl}/profile`, {
