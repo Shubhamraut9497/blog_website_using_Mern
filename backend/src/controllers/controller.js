@@ -4,10 +4,16 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import fs from "fs";
 import PostModel from "../models/post.js";
-
+import multer from "multer";
 dotenv.config();
 
 const SECRET_KEY = "bnjfnv3238basbbw29713jsjs2344jvdvb4";
+const uploads = multer({
+  limits: {
+    fieldSize: 10 * 1024 * 1024, // 10MB
+  },
+});
+
 export const registerUser = async (req, res) => {
   try {
     const salt = bcrypt.genSaltSync(10);
@@ -93,8 +99,44 @@ export const getPostData = async (req, res) => {
 
   res.json(postData);
 };
-export const getSinglePostData=async(req,res)=>{
-  const {id}=req.params;
-  const postDoc=await PostModel.findById(id).populate('author',['username']);
+export const getSinglePostData = async (req, res) => {
+  const { id } = req.params;
+  const postDoc = await PostModel.findById(id).populate("author", ["username"]);
   res.json(postDoc);
-}
+};
+
+export const UpdatePost = async (req, res) => {
+  let newPath = null;
+  if (req.file) {
+    const { originalname, path } = req.file;
+    const parts = originalname?.split(".");
+    const ext = parts.length > 1 ? parts[parts.length - 1] : "";
+    newPath = path + "." + ext;
+    fs.renameSync(path, newPath);
+  }
+  const { token } = req.cookies;
+
+  jwt.verify(token, SECRET_KEY, {}, async (err, info) => {
+    if (err) {
+      throw err;
+    }
+    const { id, title, summary, content } = req.body;
+    const postDoc = await PostModel.findOneAndUpdate(
+      { _id: id, author: info.id },
+      {
+        title,
+        summary,
+        content,
+        cover: newPath ? newPath : null, // Set null if newPath is falsy
+      },
+      { new: true }
+    );
+
+    if (!postDoc) {
+      return res.status(400).send("You are not the author of this post.");
+    }
+
+    res.json(postDoc);
+  });
+};
+

@@ -1,10 +1,12 @@
 import { format } from "date-fns";
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-
+import React, { useState, useEffect, useContext } from "react";
+import { Link, useParams } from "react-router-dom";
+import { UserContext } from "../userContext/userContext";
+import {BiEdit} from 'react-icons/bi'
 function PostPage() {
   const { id } = useParams();
   const [postInfo, setPostInfo] = useState(null);
+  const {userInfo} =useContext(UserContext);
 
   useEffect(() => {
     fetch(`http://localhost:8000/post/${id}`, {
@@ -27,7 +29,12 @@ function PostPage() {
       <h1>{postInfo.title}</h1>
        <time>{format(new Date(postInfo.createdAt), "MMM d yyyy HH:mm")}</time>
        <div className="author">by {postInfo.author.username}</div>
-      <div className="image">
+       {userInfo.id===postInfo.author._id && (
+        <div className="edit-row">
+            <Link to={`/edit/${postInfo._id}`} className="edit-btn"><BiEdit/>Edit this post</Link>
+        </div>
+       )} 
+      <div className="image"> 
         <img src={`http://localhost:8000/${postInfo?.cover}`} alt="img" />
       </div>
       <div className="content" dangerouslySetInnerHTML={{ __html: postInfo.content }} />

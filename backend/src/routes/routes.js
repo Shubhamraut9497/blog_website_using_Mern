@@ -6,10 +6,12 @@ import {
   userProfile,
   uploadFiles,
   getPostData,
-  getSinglePostData
+  getSinglePostData,
+  UpdatePost
 } from "../controllers/controller.js";
 import cookieParser from "cookie-parser";
 import multer from "multer";
+
 const uploadMiddleware = multer({ dest: "uploads/" });
 
 const router = express.Router();
@@ -23,5 +25,6 @@ router.post("/logout", logout);
 router.post("/post", uploadMiddleware.single("file"), uploadFiles);
 router.get("/post", getPostData);
 router.get("/post/:id",getSinglePostData);
+router.put("/post",uploadMiddleware.single("file"),UpdatePost)
 
 export default router;
