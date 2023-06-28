@@ -8,8 +8,8 @@ function IndexPage() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const fetchedData = async () => {
-      setLoading(true);
+    const fetchedData=async()=>{
+      setLoading(true)
       await fetch(`${apiUrl}/post`, {
         method: "GET",
         headers: {
@@ -23,49 +23,46 @@ function IndexPage() {
           setLoading(false);
           console.log(posts);
           setPosts(posts);
+          
         });
-    };
-    fetchedData();
+    }
+   fetchedData();
   }, []);
 
   if (loading) {
     return (
-      <>
-        {Array.from({ length: posts.length }, (_, index) => (
-          <div className="post-loading-wrapper" key={index}>
-            <div className="post-loading">
-              <div className="image">
-                <Skeleton
-                  width="100%"
-                  height={200}
-                  style={{ marginBottom: "20px" }}
-                />
-              </div>
-              <div className="texts">
-                <Skeleton
-                  width="80%"
-                  height={24}
-                  style={{ marginBottom: "15px" }}
-                />
-                <div className="info">
-                  <Skeleton
-                    width="40%"
-                    height={16}
-                    style={{ marginRight: "10px" }}
-                  />
-                  <Skeleton width="30%" height={16} />
-                </div>
-                <Skeleton
-                  count={3}
-                  width="100%"
-                  height={16}
-                  style={{ marginBottom: "20px" }}
-                />
-              </div>
-            </div>
+      <div className="post-loading-wrapper">
+        <div className="post-loading">
+          <div className="image">
+            <Skeleton
+              width="100%"
+              height={200}
+              style={{ marginBottom: "20px" }}
+            />
           </div>
-        ))}
-      </>
+          <div className="texts">
+            <Skeleton
+              width="80%"
+              height={24}
+              style={{ marginBottom: "15px" }}
+            ></Skeleton>
+            <div className="info">
+              <Skeleton
+                width="40%"
+                height={16}
+                style={{ marginRight: "10px" }}
+              />
+              <Skeleton width="30%" height={16} />
+            </div>
+            <Skeleton
+              count={3}
+              width="100%"
+              height={16}
+              style={{ marginBottom: "20px" }}
+            />
+          </div>
+        </div>
+      </div>
     );
   }
 
@@ -78,5 +75,6 @@ function IndexPage() {
     </>
   );
 }
+
 
 export default IndexPage;
