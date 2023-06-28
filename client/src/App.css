@@ -48,6 +48,7 @@ div.post {
   gap: 20px;
   margin-bottom: 30px;
 }
+
 @media  screen and (min-width:768px){
   div.post{
     grid-template-columns: 0.9fr 1.1fr;
@@ -149,3 +150,14 @@ div.post-page a.edit-btn{
   text-decoration: none;
   border-radius: 5px;
 }
+.post-loading-wrapper {
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+.post-loading {
+  display: flex;
+  gap: 20px;
+}
+
+/* Rest of your existing CSS styles for the Post component */

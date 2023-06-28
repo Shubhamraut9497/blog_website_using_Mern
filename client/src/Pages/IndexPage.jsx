@@ -4,6 +4,7 @@ import Post from "../components/Post";
 function IndexPage() {
   const [posts, setPosts] = useState([]);
   const apiUrl = process.env.REACT_APP_API_URL;
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch(`${apiUrl}/post`, {
@@ -18,20 +19,19 @@ function IndexPage() {
       .then((posts) => {
         console.log(posts);
         setPosts(posts);
+        setLoading(false);
       });
   }, []);
+
   return (
     <>
       {posts.length > 0 &&
-        posts.map((post) => {
-          return (
-            <>
-              <Post {...post} />
-            </>
-          );
-        })}
+        posts.map((post) => (
+          <Post key={post._id} {...post} loading={loading} />
+        ))}
     </>
   );
 }
+
 
 export default IndexPage;
