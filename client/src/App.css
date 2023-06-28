@@ -150,6 +150,17 @@ div.post-page a.edit-btn{
   text-decoration: none;
   border-radius: 5px;
 }
+/* .post-loading-wrapper {
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+.post-loading {
+  display: flex;
+  gap: 20px;
+
+} */
+
 .post-loading-wrapper {
   background-color: #f2f2f2;
   padding: 20px;
@@ -158,6 +169,78 @@ div.post-page a.edit-btn{
 .post-loading {
   display: flex;
   gap: 20px;
+}
+
+.post-loading .image {
+  position: relative;
+  width: 50%;
+  height: 200px;
+}
+
+.post-loading .image:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ddd;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.post-loading .texts {
+  flex-grow: 1;
+}
+
+.post-loading .texts h2 {
+  width: 80%;
+  height: 24px;
+  margin-bottom: 15px;
+  background-color: #ddd;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.post-loading .texts .info {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.post-loading .texts .info span {
+  width: 40%;
+  height: 16px;
+  background-color: #ddd;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.post-loading .texts .info time {
+  width: 30%;
+  height: 16px;
+  background-color: #ddd;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.post-loading .texts p {
+  margin-bottom: 20px;
+}
+
+.post-loading .texts p.summary {
+  width: 100%;
+  height: 16px;
+  background-color: #ddd;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
 }
 
 /* Rest of your existing CSS styles for the Post component */

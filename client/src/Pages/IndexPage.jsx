@@ -1,27 +1,70 @@
 import React, { useState, useEffect } from "react";
 import Post from "../components/Post";
+import Skeleton from "react-loading-skeleton";
 
 function IndexPage() {
   const [posts, setPosts] = useState([]);
   const apiUrl = process.env.REACT_APP_API_URL;
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    fetch(`${apiUrl}/post`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => {
-        return response.json();
+    const fetchedData=async()=>{
+      setLoading(true)
+      await fetch(`${apiUrl}/post`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
       })
-      .then((posts) => {
-        console.log(posts);
-        setPosts(posts);
-        setLoading(false);
-      });
+        .then((response) => {
+          return response.json();
+        })
+        .then((posts) => {
+          setLoading(false);
+          console.log(posts);
+          setPosts(posts);
+          
+        });
+    }
+   fetchedData();
   }, []);
+
+  if (loading) {
+    return (
+      <div className="post-loading-wrapper">
+        <div className="post-loading">
+          <div className="image">
+            <Skeleton
+              width="100%"
+              height={200}
+              style={{ marginBottom: "20px" }}
+            />
+          </div>
+          <div className="texts">
+            <Skeleton
+              width="80%"
+              height={24}
+              style={{ marginBottom: "15px" }}
+            ></Skeleton>
+            <div className="info">
+              <Skeleton
+                width="40%"
+                height={16}
+                style={{ marginRight: "10px" }}
+              />
+              <Skeleton width="30%" height={16} />
+            </div>
+            <Skeleton
+              count={3}
+              width="100%"
+              height={16}
+              style={{ marginBottom: "20px" }}
+            />
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
