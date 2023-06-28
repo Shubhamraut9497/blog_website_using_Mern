@@ -55,13 +55,17 @@ export const LoginUser = async (req, res) => {
 
 export const userProfile = async (req, res) => {
   const { token } = req.cookies;
-
+  try{
   jwt.verify(token, SECRET_KEY, {}, (err, info) => {
     if (err) {
       throw err;
     }
     res.json(info);
   });
+}
+catch(err){
+  console.log(err);
+}
 };
 // logoout
 export const logout = async (req, res) => {
